@@ -50,6 +50,13 @@ curl -fsSL https://github.com/PasarGuard/scripts/raw/main/pasarguard.sh -o /tmp/
 
 <br>
 
+
+## How to Run?
+Run the following script on your server (Debian or Ubuntu):
+```
+bash <(curl -Ls https://raw.githubusercontent.com/Erfan-XRay/TrustTunnel/main/main.sh)
+```
+
 ### My social accounts
 
 [![Telegram](https://img.shields.io/badge/Telegram--0088CC?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/Erfan_XRay) 
