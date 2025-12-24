@@ -18,7 +18,12 @@ Defiant is released as an open-source project, and contributions from the commun
 
 # Supported Panels
 
-
+<p align="center">
+<picture>
+<img width="230" height="230"  alt="XPanel" src="https://github.com/69learn/Defiant/blob/main/assets/DEFIANT.png">
+</picture>
+  </p> 
+  
 - (Marzban)
 ````
 sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install --database mysql
