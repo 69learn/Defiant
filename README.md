@@ -20,10 +20,10 @@ Defiant is released as an open-source project, and contributions from the commun
 
 <p align="center">
 <picture>
-<img width="180" height="180"  alt="XPanel" src="https://github.com/69learn/Defiant/blob/main/assets/3xuilogo.png">
-<img width="180" height="180"  alt="XPanel" src="https://github.com/69learn/Defiant/blob/main/assets/marzbanlogo.png">
-<img width="180" height="180"  alt="XPanel" src="https://github.com/69learn/Defiant/blob/main/assets/PasarGuardlogo.png">
-<img width="180" height="180"  alt="XPanel" src="https://github.com/69learn/Defiant/blob/main/assets/marzneshin.jpg">  
+<img width="70" height="70"  alt="XPanel" src="https://github.com/69learn/Defiant/blob/main/assets/3xuilogo.png">
+<img width="70" height="70"  alt="XPanel" src="https://github.com/69learn/Defiant/blob/main/assets/marzbanlogo.png">
+<img width="70" height="70"  alt="XPanel" src="https://github.com/69learn/Defiant/blob/main/assets/PasarGuardlogo.png">
+<img width="70" height="70"  alt="XPanel" src="https://github.com/69learn/Defiant/blob/main/assets/marzneshin.jpg">  
   
 </picture>
   </p> 
