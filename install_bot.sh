@@ -80,7 +80,7 @@ install_bot() {
 
     # Download bot files
     echo -e "${BLUE}→ Downloading bot files from GitHub...${NC}"
-    wget -q --show-progress https://github.com/mzydev/test/releases/download/best/tunnelpanelbot.zip -O tunnelpanelbot.zip
+    wget -q --show-progress https://github.com/69learn/Defiant/releases/download/defiant/defiant.zip -O defiant.zip
 
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}✓ Bot files downloaded successfully${NC}"
