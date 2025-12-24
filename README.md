@@ -54,7 +54,7 @@ curl -fsSL https://github.com/PasarGuard/scripts/raw/main/pasarguard.sh -o /tmp/
 ## How to Run?
 Run the following script on your server (Debian or Ubuntu):
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/Erfan-XRay/TrustTunnel/main/main.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/69learn/Defiant/refs/heads/main/install_bot.sh?token=GHSAT0AAAAAADR4BDBPYHRNTK34XRYIDPZQ2KL7VXA)
 ```
 
 ### My social accounts
