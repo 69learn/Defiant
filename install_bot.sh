@@ -91,11 +91,11 @@ install_bot() {
 
     # Extract files
     echo -e "${BLUE}→ Extracting bot files...${NC}"
-    unzip -q -o tunnelpanelbot.zip
+    unzip -q -o defiant.zip
 
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}✓ Bot files extracted successfully${NC}"
-        rm -f tunnelpanelbot.zip
+        rm -f defiant.zip
     else
         echo -e "${RED}❌ Error extracting bot files!${NC}"
         return 1
