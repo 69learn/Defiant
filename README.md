@@ -13,3 +13,33 @@ It provides an easy-to-use interface, automated command execution, and a streaml
 This project is suitable for users who want to manage server tunneling and VPN panel installation without dealing with complex manual configurations.
 Defiant is released as an open-source project, and contributions from the community are welcome.
 </p>
+
+<br>
+
+# Supported Panels
+
+
+- (Marzban)
+````
+sudo bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
+````
+- (Niduka Akalanka)
+````
+bash <(curl -Ls https://raw.githubusercontent.com/NidukaAkalanka/x-ui-english/master/install.sh) 0.2.1.2
+````
+- (Sanaei)
+````
+bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) v1.7.9
+````
+- (Alireza)
+````
+bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh) 1.5.5
+````
+- (Vaxilu)
+````
+bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
+````
+
+
+
+<br>
