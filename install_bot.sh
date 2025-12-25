@@ -192,8 +192,19 @@ EOF
     echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo ""
 
-    pip3 install --upgrade pip -q
-    pip3 install -r requirements.txt -q
+    echo -e "${BLUE}→ Removing conflicting packages...${NC}"
+    pip3 uninstall -y blinker 2>/dev/null || true
+    apt-get remove -y python3-blinker 2>/dev/null || true
+    
+    echo -e "${BLUE}→ Upgrading pip...${NC}"
+    pip3 install --upgrade pip setuptools wheel -q 2>&1 | grep -v "WARNING: Running pip as the 'root' user" || true
+    
+    echo -e "${BLUE}→ Installing critical dependencies first...${NC}"
+    pip3 install --no-cache-dir mysql-connector-python 2>&1 | grep -v "WARNING: Running pip as the 'root' user" || true
+    pip3 install --no-cache-dir python-telegram-bot[job-queue] 2>&1 | grep -v "WARNING: Running pip as the 'root' user" || true
+    
+    echo -e "${BLUE}→ Installing remaining dependencies...${NC}"
+    pip3 install --no-cache-dir --ignore-installed -r requirements.txt 2>&1 | grep -v "WARNING: Running pip as the 'root' user" || true
 
     echo -e "${GREEN}✓ Python dependencies installed${NC}"
     echo ""
@@ -204,9 +215,21 @@ EOF
     echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo ""
 
-    python3 -c "from database import init_database; init_database()"
-
-    echo -e "${GREEN}✓ Database initialized${NC}"
+    echo -e "${BLUE}→ Creating database tables...${NC}"
+    DB_INIT_OUTPUT=$(python3 -c "from database import init_database; init_database()" 2>&1)
+    DB_INIT_EXIT=$?
+    
+    if [ $DB_INIT_EXIT -eq 0 ]; then
+        echo -e "${GREEN}✓ Database initialized successfully${NC}"
+    else
+        echo -e "${RED}✗ Database initialization failed!${NC}"
+        echo -e "${YELLOW}Error output:${NC}"
+        echo "$DB_INIT_OUTPUT"
+        echo ""
+        echo -e "${RED}Installation cannot continue without database.${NC}"
+        read -p "Press Enter to exit..."
+        exit 1
+    fi
     echo ""
 
     # STEP 7: Create systemd service
