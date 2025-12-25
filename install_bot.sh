@@ -80,24 +80,29 @@ install_bot() {
 
     # Download bot files
     echo -e "${BLUE}→ Downloading bot files from GitHub...${NC}"
-    wget -q --show-progress https://github.com/mzydev/test/releases/download/best/tunnelpanelbot.zip -O tunnelpanelbot.zip
+    wget -q --show-progress https://github.com/69learn/Defiant/releases/download/defiant/defiant.zip -O defiant.zip
 
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}✓ Bot files downloaded successfully${NC}"
     else
         echo -e "${RED}❌ Error downloading bot files!${NC}"
+        echo -e "${YELLOW}   Check URL: https://github.com/69learn/Defiant/releases/download/defiant/defiant.zip${NC}"
+        echo -e "${YELLOW}   Make sure the release exists and is accessible${NC}"
+        read -p "$(echo -e ${CYAN}Press Enter to return to main menu...${NC})" dummy
         return 1
     fi
 
     # Extract files
     echo -e "${BLUE}→ Extracting bot files...${NC}"
-    unzip -q -o tunnelpanelbot.zip
+    unzip -q -o defiant.zip
 
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}✓ Bot files extracted successfully${NC}"
-        rm -f tunnelpanelbot.zip
+        rm -f defiant.zip
     else
         echo -e "${RED}❌ Error extracting bot files!${NC}"
+        echo -e "${YELLOW}   The downloaded file may be corrupted${NC}"
+        read -p "$(echo -e ${CYAN}Press Enter to return to main menu...${NC})" dummy
         return 1
     fi
 
