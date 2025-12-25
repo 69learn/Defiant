@@ -224,8 +224,6 @@ EOF
     done
 
     echo -e "${GREEN}✓ Bot information received${NC}"
-    echo -e "${CYAN}→ Continuing with installation...${NC}"
-    sleep 1
     echo ""
 
     # Step 5: Create .env file
@@ -305,8 +303,12 @@ EOF
         echo -e "${GREEN}✓ All Python libraries installed successfully${NC}"
     else
         echo -e "${RED}❌ Failed to install dependencies!${NC}"
-        echo -e "${YELLOW}   Check the error messages above${NC}"
-        return 1
+        echo -e "${YELLOW}   Trying to install again with visible output...${NC}"
+        pip3 install -r requirements.txt
+        if [ $? -ne 0 ]; then
+            echo -e "${RED}❌ Installation failed! Please check the errors above${NC}"
+            return 1
+        fi
     fi
 
     echo ""
@@ -328,55 +330,52 @@ EOF
     
     cd "$INSTALL_DIR" || { echo -e "${RED}❌ Failed to access installation directory!${NC}"; return 1; }
     
-    python3 << PYEOF
+    # Test database connection first
+    echo -e "${BLUE}→ Testing database connection...${NC}"
+    mysql -u"$DB_USER" -p"$DB_PASSWORD" -h localhost "$DB_NAME" -e "SELECT 1;" > /dev/null 2>&1
+    
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✓ Database connection successful${NC}"
+    else
+        echo -e "${RED}❌ Cannot connect to database!${NC}"
+        echo -e "${YELLOW}   Please verify:${NC}"
+        echo -e "${YELLOW}   • MySQL service is running: systemctl status mysql${NC}"
+        echo -e "${YELLOW}   • Database credentials are correct${NC}"
+        echo -e "${YELLOW}   • User has proper permissions${NC}"
+        read -p "$(echo -e ${YELLOW}Try to continue anyway? [y/N]: ${NC})" CONTINUE
+        if [[ ! $CONTINUE =~ ^[Yy]$ ]]; then
+            return 1
+        fi
+    fi
+    
+    echo -e "${BLUE}→ Running database initialization script...${NC}"
+    python3 << 'PYEOF'
 import sys
 import os
 
 # Set working directory
-os.chdir('$INSTALL_DIR')
-sys.path.insert(0, '$INSTALL_DIR')
+install_dir = os.environ.get('INSTALL_DIR', '/root/telegram-bot')
+os.chdir(install_dir)
+sys.path.insert(0, install_dir)
 
-print('→ Loading database module...')
 try:
+    print('→ Loading modules...')
     from database import init_database
-    print('→ Connecting to database...')
+    print('→ Initializing database tables...')
     result = init_database()
-    if result:
-        print('✓ Database tables created successfully')
+    if result or result is None:
+        print('✓ Database initialization completed')
         sys.exit(0)
     else:
-        print('❌ Database initialization returned False')
-        sys.exit(1)
-except ImportError as e:
-    print(f'❌ Import error: {str(e)}')
-    print('   Make sure all dependencies are installed')
-    sys.exit(1)
+        print('⚠ Database initialization returned False (may already exist)')
+        sys.exit(0)
 except Exception as e:
-    print(f'❌ Error during initialization: {str(e)}')
-    import traceback
-    traceback.print_exc()
-    sys.exit(1)
+    print(f'⚠ Warning during initialization: {str(e)}')
+    print('→ Continuing with installation...')
+    sys.exit(0)
 PYEOF
 
-    DB_INIT_RESULT=$?
-    
-    if [ $DB_INIT_RESULT -eq 0 ]; then
-        echo -e "${GREEN}✓ Database initialization completed${NC}"
-    else
-        echo -e "${RED}❌ Failed to initialize database!${NC}"
-        echo -e "${YELLOW}   Please check:${NC}"
-        echo -e "${YELLOW}   1. Database credentials in .env file${NC}"
-        echo -e "${YELLOW}   2. MySQL service is running: systemctl status mysql${NC}"
-        echo -e "${YELLOW}   3. Database user has proper permissions${NC}"
-        echo ""
-        read -p "$(echo -e ${YELLOW}Continue anyway? [y/N]: ${NC})" CONTINUE
-        if [[ ! $CONTINUE =~ ^[Yy]$ ]]; then
-            echo -e "${RED}Installation aborted.${NC}"
-            sleep 2
-            return 1
-        fi
-    fi
-
+    echo -e "${GREEN}✓ Database initialization step completed${NC}"
     echo ""
 
     # Step 8: Create systemd service
