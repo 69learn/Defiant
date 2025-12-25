@@ -152,7 +152,7 @@ def show_manual_commands():
     """Show manual commands"""
     print_header("دستورات Manual")
     
-    print("برای راه‌اندازی دستی MySQL، این دستورات را اجرا کنید:\n")
+    print("برای ��اه‌اندازی دستی MySQL، این دستورات را اجرا کنید:\n")
     print("1. وارد MySQL شوید:")
     print("   sudo mysql\n")
     

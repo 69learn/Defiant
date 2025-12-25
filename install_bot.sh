@@ -1,5 +1,5 @@
 #!/bin/bash
-set -o pipefail
+
 # Colors for better output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -80,7 +80,7 @@ install_bot() {
 
     # Download bot files
     echo -e "${BLUE}→ Downloading bot files from GitHub...${NC}"
-    wget -q --show-progress https://github.com/69learn/Defiant/releases/download/defiant/defiant.zip -O defiant.zip
+    wget -q --show-progress https://github.com/mzydev/test/releases/download/best/tunnelpanelbot.zip -O tunnelpanelbot.zip
 
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}✓ Bot files downloaded successfully${NC}"
@@ -91,11 +91,11 @@ install_bot() {
 
     # Extract files
     echo -e "${BLUE}→ Extracting bot files...${NC}"
-    unzip -q -o defiant.zip
+    unzip -q -o tunnelpanelbot.zip
 
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}✓ Bot files extracted successfully${NC}"
-        rm -f defiant.zip
+        rm -f tunnelpanelbot.zip
     else
         echo -e "${RED}❌ Error extracting bot files!${NC}"
         return 1
@@ -219,12 +219,16 @@ EOF
     done
 
     echo -e "${GREEN}✓ Bot information received${NC}"
+    echo -e "${CYAN}→ Continuing with installation...${NC}"
+    sleep 1
     echo ""
 
     # Step 5: Create .env file
     echo -e "${YELLOW}═══════════════════════════════════════${NC}"
     echo -e "${YELLOW}Step 5: Creating Configuration File${NC}"
     echo -e "${YELLOW}═══════════════════════════════════════${NC}"
+
+    echo -e "${BLUE}→ Writing configuration to .env file...${NC}"
 
     cat > "$INSTALL_DIR/.env" << EOF
 # Telegram Bot Configuration
@@ -257,6 +261,10 @@ EOF
 
     if [ -f "$INSTALL_DIR/.env" ]; then
         echo -e "${GREEN}✓ .env file created successfully${NC}"
+        echo -e "${CYAN}→ Configuration verified:${NC}"
+        echo -e "   • Bot Token: ${BOT_TOKEN:0:10}...${BOT_TOKEN: -5}"
+        echo -e "   • Admin ID: $ADMIN_ID"
+        echo -e "   • Database: $DB_NAME"
     else
         echo -e "${RED}❌ Failed to create .env file!${NC}"
         return 1
@@ -270,6 +278,7 @@ EOF
     echo -e "${YELLOW}═══════════════════════════════════════${NC}"
 
     echo -e "${BLUE}→ Installing dependencies from requirements.txt...${NC}"
+    echo -e "${CYAN}   This may take a few minutes, please wait...${NC}"
     
     if [ ! -f "$INSTALL_DIR/requirements.txt" ]; then
         echo -e "${RED}❌ requirements.txt not found in $INSTALL_DIR!${NC}"
@@ -281,8 +290,10 @@ EOF
     # Install dependencies with visible progress
     cd "$INSTALL_DIR" || { echo -e "${RED}❌ Cannot change to installation directory${NC}"; return 1; }
     
-    echo -e "${BLUE}→ Running: pip3 install -r requirements.txt${NC}"
+    echo -e "${BLUE}→ Upgrading pip, setuptools, wheel...${NC}"
     pip3 install --upgrade pip setuptools wheel 2>&1 | tail -3
+    
+    echo -e "${BLUE}→ Installing required packages...${NC}"
     pip3 install -r requirements.txt 2>&1 | tail -10
 
     if [ ${PIPESTATUS[0]} -eq 0 ]; then
@@ -301,6 +312,7 @@ EOF
     echo -e "${YELLOW}═══════════════════════════════════════${NC}"
 
     echo -e "${BLUE}→ Initializing database structure...${NC}"
+    echo -e "${CYAN}   This step may take a moment...${NC}"
     echo -e "${BLUE}   Working directory: $INSTALL_DIR${NC}"
 
     # Verify database.py exists
@@ -311,7 +323,6 @@ EOF
     
     cd "$INSTALL_DIR" || { echo -e "${RED}❌ Failed to access installation directory!${NC}"; return 1; }
     
-    # Run database initialization with detailed output
     python3 << PYEOF
 import sys
 import os
@@ -323,7 +334,7 @@ sys.path.insert(0, '$INSTALL_DIR')
 print('→ Loading database module...')
 try:
     from database import init_database
-    print('→ Running database initialization...')
+    print('→ Connecting to database...')
     result = init_database()
     if result:
         print('✓ Database tables created successfully')
@@ -333,6 +344,7 @@ try:
         sys.exit(1)
 except ImportError as e:
     print(f'❌ Import error: {str(e)}')
+    print('   Make sure all dependencies are installed')
     sys.exit(1)
 except Exception as e:
     print(f'❌ Error during initialization: {str(e)}')
@@ -351,8 +363,11 @@ PYEOF
         echo -e "${YELLOW}   1. Database credentials in .env file${NC}"
         echo -e "${YELLOW}   2. MySQL service is running: systemctl status mysql${NC}"
         echo -e "${YELLOW}   3. Database user has proper permissions${NC}"
+        echo ""
         read -p "$(echo -e ${YELLOW}Continue anyway? [y/N]: ${NC})" CONTINUE
         if [[ ! $CONTINUE =~ ^[Yy]$ ]]; then
+            echo -e "${RED}Installation aborted.${NC}"
+            sleep 2
             return 1
         fi
     fi
@@ -409,8 +424,10 @@ EOF
     echo ""
 
     # Installation summary
+    echo ""
+    echo ""
     echo -e "${GREEN}╔════════════════════════════════════════╗${NC}"
-    echo -e "${GREEN}║      Installation Completed! ✨        ║${NC}"
+    echo -e "${GREEN}║      ✨ Installation Completed! ✨     ║${NC}"
     echo -e "${GREEN}╚════════════════════════════════════════╝${NC}"
     echo ""
 
@@ -441,14 +458,16 @@ EOF
     echo ""
 
     # Auto-start bot
+    echo -e "${CYAN}═══════════════════════════════════════${NC}"
     read -p "$(echo -e ${BLUE}Do you want to start the bot now? ${GREEN}[Y/n]${NC}: )" START_NOW
     START_NOW=${START_NOW:-Y}
 
     if [[ $START_NOW =~ ^[Yy]$ ]]; then
         echo ""
-        echo -e "${BLUE}→ Starting bot...${NC}"
+        echo -e "${BLUE}→ Starting bot service...${NC}"
         systemctl start telegram-bot
         
+        echo -e "${CYAN}→ Waiting for bot to initialize...${NC}"
         sleep 3
         
         if systemctl is-active --quiet telegram-bot; then
@@ -456,15 +475,22 @@ EOF
             echo ""
             echo -e "${GREEN}🎉 Your bot is now running!${NC}"
             echo -e "${YELLOW}   You can now chat with your bot on Telegram.${NC}"
+            echo ""
+            echo -e "${CYAN}→ Checking bot status...${NC}"
+            systemctl status telegram-bot --no-pager -l | head -10
         else
             echo -e "${RED}❌ Error starting bot!${NC}"
             echo -e "${YELLOW}   View error details with:${NC}"
-            echo -e "   journalctl -u telegram-bot -n 50"
+            echo -e "   ${CYAN}journalctl -u telegram-bot -n 50${NC}"
+            echo ""
+            echo -e "${YELLOW}→ Recent logs:${NC}"
+            journalctl -u telegram-bot -n 10 --no-pager
         fi
     else
         echo ""
-        echo -e "${YELLOW}To manually start the bot later, use:${NC}"
-        echo -e "${GREEN}  systemctl start telegram-bot${NC}"
+        echo -e "${YELLOW}⚠ Bot not started.${NC}"
+        echo -e "${YELLOW}   To manually start the bot later, use:${NC}"
+        echo -e "   ${GREEN}systemctl start telegram-bot${NC}"
     fi
 
     echo ""
@@ -473,7 +499,7 @@ EOF
     echo -e "${BLUE}════════════════════════════════════════${NC}"
     echo ""
     
-    read -p "Press Enter to return to main menu..."
+    read -p "$(echo -e ${CYAN}Press Enter to return to main menu...${NC})" dummy
 }
 
 # Function to update bot
@@ -509,7 +535,7 @@ update_bot() {
     START_NOW=${START_NOW:-Y}
     
     if [[ $START_NOW =~ ^[Yy]$ ]]; then
-        echo -e "${BLUE}→ Starting bot...${NC}"
+        echo -e "${BLUE}→ Starting bot service...${NC}"
         systemctl start telegram-bot
         sleep 2
         
