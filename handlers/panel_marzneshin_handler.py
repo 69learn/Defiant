@@ -19,14 +19,13 @@ async def panel_marzneshin_start(update: Update, context: ContextTypes.DEFAULT_T
     await query.edit_message_text(
         text="🖥 نصب Marzneshin\n\n"
              "📝 لطفاً اطلاعات سرور را درج کنید:\n\n"
-             "`IP:`\n"
-             "`User:`\n"
-             "`Pass:`\n"
-             "`SSH Port:`\n"
-             "`Subdomain:`\n\n"
+             "IP:\n"
+             "User:\n"
+             "Pass:\n"
+             "SSH Port:\n"
+             "Subdomain:\n\n"
              "⚠️ تمام اطلاعات را زیر هم و در یک پیام ارسال کنید:",
-        reply_markup=reply_markup,
-        parse_mode='Markdown'
+        reply_markup=reply_markup
     )
     
     return MARZNESHIN_SERVER_INFO
@@ -47,11 +46,11 @@ async def get_marzneshin_server_info(update: Update, context: ContextTypes.DEFAU
     if len(lines) < 5:
         await update.message.reply_text(
             "⚠️ اطلاعات ناقص است. لطفاً تمام موارد را وارد کنید:\n"
-            "`IP:`\n"
-            "`User:`\n"
-            "`Pass:`\n"
-            "`SSH Port:`\n"
-            "`Subdomain:`"
+            "IP:\n"
+            "User:\n"
+            "Pass:\n"
+            "SSH Port:\n"
+            "Subdomain:"
         )
         return MARZNESHIN_SERVER_INFO
     
@@ -67,8 +66,7 @@ async def get_marzneshin_server_info(update: Update, context: ContextTypes.DEFAU
         status_message = await update.message.reply_text(
             "⏳ در حال نصب Marzneshin...\n"
             "زمان سپری شده: 0:00\n"
-            "این فرآیند ممکن است چند دقیقه طول بکشد.",
-            parse_mode='Markdown'
+            "این فرآیند ممکن است چند دقیقه طول بکشد."
         )
         
         ssh = paramiko.SSHClient()
@@ -244,8 +242,7 @@ echo "MARZNESHIN_INSTALL_COMPLETE"
                         await status_message.edit_text(
                             f"⏳ در حال نصب Marzneshin...\n"
                             f"زمان سپری شده: {minutes}:{seconds:02d}\n"
-                            f"لطفا صبر کنید...",
-                            parse_mode='Markdown'
+                            f"لطفا صبر کنید..."
                         )
                     except:
                         pass
@@ -253,8 +250,7 @@ echo "MARZNESHIN_INSTALL_COMPLETE"
             if not installation_complete:
                 await status_message.edit_text(
                     "❌ خطا: زمان نصب به پایان رسید\n"
-                    "لطفاً دوباره تلاش کنید یا با پشتیبانی تماس بگیرید.",
-                    parse_mode='Markdown'
+                    "لطفاً دوباره تلاش کنید یا با پشتیبانی تماس بگیرید."
                 )
                 ssh.close()
                 return ConversationHandler.END
@@ -333,8 +329,7 @@ echo "MARZNESHIN_INSTALL_COMPLETE"
     except ValueError as e:
         await update.message.reply_text(
             f"⚠️ خطا در پردازش اطلاعات: {str(e)}\n"
-            "لطفاً SSH Port را به صورت عدد وارد کنید.",
-            parse_mode='Markdown'
+            "لطفاً SSH Port را به صورت عدد وارد کنید."
         )
         return MARZNESHIN_SERVER_INFO
     except Exception as e:

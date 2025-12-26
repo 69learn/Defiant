@@ -18,15 +18,15 @@ async def panel_pasarguard_start(update: Update, context: ContextTypes.DEFAULT_T
     message = (
         "🖥 نصب PasarGuard\n\n"
         "📝 لطفاً اطلاعات سرور را درج کنید:\n\n"
-        "`IP:`\n"
-        "`User:`\n"
-        "`Pass:`\n"
-        "`SSH Port:`\n"
-        "`Subdomain:`\n\n"
+        "IP:\n"
+        "User:\n"
+        "Pass:\n"
+        "SSH Port:\n"
+        "Subdomain:\n\n"
         "⚠️ تمام اطلاعات را زیر هم و در یک پیام ارسال کنید:"
     )
     
-    await query.edit_message_text(text=message, reply_markup=reply_markup, parse_mode='Markdown')
+    await query.edit_message_text(text=message, reply_markup=reply_markup)
     return PASARGUARD_SERVER_INFO
 
 async def get_pasarguard_server_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -41,13 +41,12 @@ async def get_pasarguard_server_info(update: Update, context: ContextTypes.DEFAU
             
             await update.message.reply_text(
                 "❌ فرمت اطلاعات اشتباه است. لطفاً دوباره تلاش کنید:\n\n"
-                "`IP:`\n"
-                "`User:`\n"
-                "`Pass:`\n"
-                "`SSH Port:`\n"
-                "`Subdomain:`",
-                reply_markup=reply_markup,
-                parse_mode='Markdown'
+                "IP:\n"
+                "User:\n"
+                "Pass:\n"
+                "SSH Port:\n"
+                "Subdomain:",
+                reply_markup=reply_markup
             )
             return PASARGUARD_SERVER_INFO
         
@@ -314,7 +313,7 @@ echo "PASARGUARD_INSTALL_COMPLETE"
             pid = stdout.read().decode().strip()
             
             start_time = time.time()
-            max_wait_time = 180
+            max_wait_time = 180  # 3 minutes max as requested
             last_update = 0
             dot_count = 0
             
@@ -354,7 +353,7 @@ echo "PASARGUARD_INSTALL_COMPLETE"
                 
                 await status_message.edit_text(
                     f"⚠️ نصب با خطا مواجه شد\n\n"
-                    f"آخرین خطوط لاگ:\n```\n{install_log[-1000:]}\n```",
+                    f"آخرین خطوط لاگ:\n\`\`\`\n{install_log[-1000:]}\n\`\`\`",
                     reply_markup=reply_markup,
                     parse_mode='Markdown'
                 )
@@ -423,7 +422,7 @@ echo "PASARGUARD_INSTALL_COMPLETE"
             )
             
             await status_message.edit_text(success_message, reply_markup=reply_markup, parse_mode='Markdown')
-
+            
         except paramiko.AuthenticationException:
             await update.message.reply_text("❌ خطا در احراز هویت! نام کاربری یا رمز عبور اشتباه است.")
         except paramiko.SSHException as e:

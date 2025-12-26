@@ -19,13 +19,13 @@ async def backhaul_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = """📝 لطفاً اطلاعات زیر را برای کانفیگ سرور ایران وارد کنید:
 
 🇮🇷 سرور ایران:
-`IPin:` (آیپی سرور ایران)
-`User:` (نام کاربری SSH)
-`Pass:` (رمز عبور SSH)
-`SSH Port:` (پورت SSH، معمولاً 22)
-`TunnelPorts:` (پورت‌های تانل را با فاصله وارد کنید، مثال: 443 2083 8084)
-`Transport:` (tcp, tcpmux, udp, ws, wss, wsmux, wssmux - پیش‌فرض: tcp)
-`Subdomain:` (فقط برای wss و wssmux، مثال: sub.example.com)
+IPin: (آیپی سرور ایران)
+User: (نام کاربری SSH)
+Pass: (رمز عبور SSH)
+SSH Port: (پورت SSH، معمولاً 22)
+TunnelPorts: (پورت‌های تانل را با فاصله وارد کنید، مثال: 443 2083 8084)
+Transport: (tcp, tcpmux, udp, ws, wss, wsmux, wssmux - پیش‌فرض: tcp)
+Subdomain: (فقط برای wss و wssmux، مثال: sub.example.com)
 
 ⚠️ تمام اطلاعات را زیر هم و در یک پیام ارسال کنید"""
     
@@ -33,7 +33,7 @@ async def backhaul_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("◀️ بازگشت به منوی اصلی", callback_data='main_menu')]
     ]
     
-    await query.edit_message_text(text=message, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
+    await query.edit_message_text(text=message, reply_markup=InlineKeyboardMarkup(keyboard))
     return IRAN_INFO
 
 async def get_iran_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -65,12 +65,12 @@ async def get_iran_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
         message = """📝 لطفاً اطلاعات زیر را برای کانفیگ سرور خارج وارد کنید:
 
 🌍 سرور خارج:
-`IPout:` (آیپی سرور خارج)
-`User:` (نام کاربری SSH)
-`Pass:` (رمز عبور SSH)
-`SSH Port:` (پورت SSH، معمولاً 22)
-`Transport:` (tcp, tcpmux, udp, ws, wss, wsmux, wssmux - باید با سرور ایران یکی باشد)
-`RemoteIPorSubdomain:` (آیپی یا سابدامین سرور ایران)
+IPout: (آیپی سرور خارج)
+User: (نام کاربری SSH)
+Pass: (رمز عبور SSH)
+SSH Port: (پورت SSH، معمولاً 22)
+Transport: (tcp, tcpmux, udp, ws, wss, wsmux, wssmux - باید با سرور ایران یکی باشد)
+RemoteIPorSubdomain: (آیپی یا سابدامین سرور ایران)
 
 ⚠️ تمام اطلاعات را زیر هم و در یک پیام ارسال کنید"""
         
@@ -78,7 +78,7 @@ async def get_iran_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
             [InlineKeyboardButton("◀️ بازگشت به منوی اصلی", callback_data='main_menu')]
         ]
         
-        await update.message.reply_text(message, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
+        await update.message.reply_text(message, reply_markup=InlineKeyboardMarkup(keyboard))
         return FOREIGN_INFO
         
     except Exception as e:
@@ -175,15 +175,16 @@ async def get_foreign_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
             context.user_data['tunnel_ports']
         )
         
+        # Send success message
         success_message = f"""✅ تانل Backhaul با موفقیت نصب شد!
 
 🆔 Tunnel ID: `{tunnel_id}`
 
 📋 اطلاعات تانل:
-🇮🇷 سرور ایران: `{context.user_data['iran_ip']}`
-🌍 سرور خارج: `{context.user_data['foreign_ip']}`
-📡 Transport: `{context.user_data['transport_iran']}`
-🔌 پورت‌ها: `{context.user_data['tunnel_ports']}`
+🇮🇷 سرور ایران: {context.user_data['iran_ip']}
+🌍 سرور خارج: {context.user_data['foreign_ip']}
+📡 Transport: {context.user_data['transport_iran']}
+🔌 پورت‌ها: {context.user_data['tunnel_ports']}
 
 ✨ تمام اطلاعات برای مدیریت بعدی ذخیره شده است."""
         

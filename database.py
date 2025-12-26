@@ -560,7 +560,7 @@ def delete_panel(panel_id):
     
     cursor = connection.cursor()
     try:
-        cursor.execute('DELETE FROM panels WHERE panel_id = %s', (panel_id,))
+        cursor.execute("DELETE FROM panels WHERE panel_id = %s", (panel_id,))
         connection.commit()
         return True
     except Error as e:
@@ -580,10 +580,10 @@ def add_marzban_panel(panel_id, user_id, server_ip, server_port, username, passw
     try:
         cursor.execute('''
             INSERT INTO panels (panel_id, user_id, panel_type, server_ip, server_port, 
-                               username, password, web_path, server_username, server_password, ssh_port, status)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                               username, password, web_path, server_username, server_password, ssh_port, subdomain, status)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         ''', (panel_id, user_id, 'marzban', server_ip, server_port, username, password, panel_url, 
-              server_username, server_password, ssh_port, 'active'))
+              server_username, server_password, ssh_port, subdomain, 'active'))
         
         connection.commit()
         return True
@@ -628,10 +628,10 @@ def add_marzneshin_panel(panel_id, user_id, server_ip, server_port, username, pa
     try:
         cursor.execute('''
             INSERT INTO panels (panel_id, user_id, panel_type, server_ip, server_port, 
-                               username, password, web_path, server_username, server_password, ssh_port, status)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                               username, password, web_path, server_username, server_password, ssh_port, subdomain, status)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         ''', (panel_id, user_id, 'marzneshin', server_ip, server_port, username, password, panel_url, 
-              server_username, server_password, ssh_port, 'active'))
+              server_username, server_password, ssh_port, subdomain, 'active'))
         
         connection.commit()
         return True
@@ -903,7 +903,7 @@ def get_user_panels_with_access(user_id):
     try:
         cursor.execute('''
             SELECT panel_id, panel_type, server_ip, server_port, username, password, 
-                   web_path, status, created_at, subdomain, db_password, user_id
+                   web_path, status, created_at, subdomain, db_password, user_id as owner_id
             FROM panels
             WHERE user_id = %s
                OR user_id IN (

@@ -20,13 +20,13 @@ async def mux_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = """🇮🇷 کانفیگ سرور ایران - Mux
 📝 لطفاً اطلاعات زیر را برای کانفیگ سرور ایران وارد کنید:
 
-`IPin:` (آیپی سرور ایران برای اتصال SSH)
-`User:` (نام کاربری SSH)
-`Pass:` (رمز عبور SSH)
-`SSH Port:` (پورت SSH، معمولاً 22)
-`IranIP:` (آیپی سرور ایران WAN)
-`KharejIP:` (آیپی سرور خارج WAN)
-`Ports:` (پورت‌های تانل با فاصله، مثال: 8080 6902 2058 8525)
+IPin: (آیپی سرور ایران برای اتصال SSH)
+User: (نام کاربری SSH)
+Pass: (رمز عبور SSH)
+SSH Port: (پورت SSH، معمولاً 22)
+IranIP: (آیپی سرور ایران WAN)
+KharejIP: (آیپی سرور خارج WAN)
+Ports: (پورت‌های تانل با فاصله، مثال: 8080 6902 2058 8525)
 
 ⚠️ تمام اطلاعات را زیر هم و در یک پیام ارسال کنید
 
@@ -38,7 +38,7 @@ async def mux_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🔙 بازگشت به منوی اصلی", callback_data='main_menu')]
     ]
     
-    await query.edit_message_text(text=message, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
+    await query.edit_message_text(text=message, reply_markup=InlineKeyboardMarkup(keyboard))
     return MUX_IRAN_INFO
 
 async def mux_get_iran_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -74,9 +74,8 @@ async def mux_get_iran_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text(
                 f"❌ فیلدهای زیر الزامی هستند و وارد نشده‌اند:\n{', '.join(missing)}\n\n"
                 "لطفاً دوباره تمام اطلاعات را به فرمت زیر ارسال کنید:\n"
-                "`IPin:` ...\n`User:` ...\n`Pass:` ...\n`SSH Port:` ...\n`IranIP:` ...\n`KharejIP:` ...\n`Ports:` ...",
-                reply_markup=InlineKeyboardMarkup(keyboard),
-                parse_mode='Markdown'
+                "IPin: ...\nUser: ...\nPass: ...\nSSH Port: ...\nIranIP: ...\nKharejIP: ...\nPorts: ...",
+                reply_markup=InlineKeyboardMarkup(keyboard)
             )
             return MUX_IRAN_INFO
         
@@ -97,13 +96,13 @@ async def mux_get_iran_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 📝 حالا لطفاً اطلاعات سرور خارج را وارد کنید:
 
-`IPout:` (آیپی سرور خارج برای اتصال SSH)
-`User:` (نام کاربری SSH)
-`Pass:` (رمز عبور SSH)
-`SSH Port:` (پورت SSH، معمولاً 22)
-`IranIP:` {info['IranIP']}
-`KharejIP:` {info['KharejIP']}
-`Ports:` (پورت‌های تانل با فاصله، مثال: 443 2053 2083)
+IPout: (آیپی سرور خارج برای اتصال SSH)
+User: (نام کاربری SSH)
+Pass: (رمز عبور SSH)
+SSH Port: (پورت SSH، معمولاً 22)
+IranIP: {info['IranIP']}
+KharejIP: {info['KharejIP']}
+Ports: (پورت‌های تانل با فاصله، مثال: 443 2053 2083)
 
 ⚠️ تمام اطلاعات را زیر هم و در یک پیام ارسال کنید"""
         
@@ -111,7 +110,7 @@ async def mux_get_iran_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
             [InlineKeyboardButton("🔙 بازگشت به منوی اصلی", callback_data='main_menu')]
         ]
         
-        await update.message.reply_text(confirm_msg, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
+        await update.message.reply_text(confirm_msg, reply_markup=InlineKeyboardMarkup(keyboard))
         return MUX_FOREIGN_INFO
         
     except Exception as e:
@@ -121,9 +120,8 @@ async def mux_get_iran_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             f"❌ خطا در پردازش اطلاعات: {str(e)}\n\n"
             "لطفاً اطلاعات را به فرمت زیر ارسال کنید:\n"
-            "`IPin:` ...\n`User:` ...\n`Pass:` ...\n`SSH Port:` ...\n`IranIP:` ...\n`KharejIP:` ...\n`Ports:` ...",
-            reply_markup=InlineKeyboardMarkup(keyboard),
-            parse_mode='Markdown'
+            "IPin: ...\nUser: ...\nPass: ...\nSSH Port: ...\nIranIP: ...\nKharejIP: ...\nPorts: ...",
+            reply_markup=InlineKeyboardMarkup(keyboard)
         )
         return MUX_IRAN_INFO
 
@@ -160,9 +158,8 @@ async def mux_get_foreign_info(update: Update, context: ContextTypes.DEFAULT_TYP
             await update.message.reply_text(
                 f"❌ فیلدهای زیر الزامی هستند و وارد نشده‌اند:\n{', '.join(missing)}\n\n"
                 "لطفاً دوباره تمام اطلاعات را به فرمت زیر ارسال کنید:\n"
-                "`IPout:` ...\n`User:` ...\n`Pass:` ...\n`SSH Port:` ...\n`IranIP:` ...\n`KharejIP:` ...\n`Ports:` ...",
-                reply_markup=InlineKeyboardMarkup(keyboard),
-                parse_mode='Markdown'
+                "IPout: ...\nUser: ...\nPass: ...\nSSH Port: ...\nIranIP: ...\nKharejIP: ...\nPorts: ...",
+                reply_markup=InlineKeyboardMarkup(keyboard)
             )
             return MUX_FOREIGN_INFO
         
@@ -262,9 +259,9 @@ async def mux_get_foreign_info(update: Update, context: ContextTypes.DEFAULT_TYP
 🆔 Tunnel ID: `{tunnel_id}`
 
 📋 اطلاعات تانل:
-IPin: `{context.user_data['iran_ssh_ip']}`
-IPout: `{context.user_data['foreign_ssh_ip']}`
-Ports: `{context.user_data['ports']}`
+IPin: {context.user_data['iran_ssh_ip']}
+IPout: {context.user_data['foreign_ssh_ip']}
+Ports: {context.user_data['ports']}
 
 ✨ تمام اطلاعات برای مدیریت بعدی ذخیره شده است."""
         
