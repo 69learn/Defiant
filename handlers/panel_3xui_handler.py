@@ -19,12 +19,13 @@ async def panel_3xui_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.edit_message_text(
         text="🖥 نصب پنل 3x-ui\n\n"
              "📝 لطفاً اطلاعات سرور را درج کنید:\n\n"
-             "IP:\n"
-             "User:\n"
-             "Pass:\n"
-             "SSH Port:\n\n"
+             "`IP:`\n"
+             "`User:`\n"
+             "`Pass:`\n"
+             "`SSH Port:`\n\n"
              "⚠️ تمام اطلاعات را زیر هم و در یک پیام ارسال کنید:",
-        reply_markup=reply_markup
+        reply_markup=reply_markup,
+        parse_mode='Markdown'
     )
     
     return SERVER_INFO

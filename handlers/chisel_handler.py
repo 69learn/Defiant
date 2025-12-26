@@ -20,11 +20,11 @@ async def chisel_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 🇮🇷 سرور ایران (سرور اول):
 
-IPin:
-User:
-Pass:
-SSH Port:
-TunnelPort:
+`IPin:`
+`User:`
+`Pass:`
+`SSH Port:`
+`TunnelPort:`
 
 ⚠️ تمام اطلاعات را زیر هم و در یک پیام ارسال کنید
 
@@ -35,7 +35,7 @@ TunnelPort:
         [InlineKeyboardButton("◀️ بازگشت به منوی اصلی", callback_data='main_menu')]
     ]
     
-    await query.edit_message_text(text=message, reply_markup=InlineKeyboardMarkup(keyboard))
+    await query.edit_message_text(text=message, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
     return IRAN_INFO
 
 async def get_iran_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -65,14 +65,14 @@ async def get_iran_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 🌍 سرور خارج (سرور دوم):
 
-IPout:
-User:
-Pass:
-SSH Port:
-TunnelPort:
-Remoteip:
-Numberofconfig:
-Configports:
+`IPout:`
+`User:`
+`Pass:`
+`SSH Port:`
+`TunnelPort:`
+`Remoteip:`
+`Numberofconfig:`
+`Configports:`
 
 ⚠️ تمام اطلاعات را زیر هم و در یک پیام ارسال کنید
 
@@ -86,7 +86,7 @@ Configports:
             [InlineKeyboardButton("◀️ بازگشت به منوی اصلی", callback_data='main_menu')]
         ]
         
-        await update.message.reply_text(message, reply_markup=InlineKeyboardMarkup(keyboard))
+        await update.message.reply_text(message, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
         return FOREIGN_INFO
         
     except Exception as e:
@@ -183,9 +183,9 @@ async def get_foreign_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
 🆔 Tunnel ID: `{tunnel_id}`
 
 📋 اطلاعات تانل:
-🇮🇷 IPin: {context.user_data['iran_ip']}
-🌍 IPout: {context.user_data['foreign_ip']}
-🔌 Configports: {context.user_data['config_ports']}
+🇮🇷 IPin: `{context.user_data['iran_ip']}`
+🌍 IPout: `{context.user_data['foreign_ip']}`
+🔌 Configports: `{context.user_data['config_ports']}`
 
 ✨ تمام اطلاعات برای مدیریت بعدی ذخیره شده است."""
         

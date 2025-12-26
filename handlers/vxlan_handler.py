@@ -21,18 +21,18 @@ async def vxlan_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 📝 لطفاً اطلاعات زیر را برای کانفیگ سرور ایران وارد کنید:
 
-IPin: (آیپی سرور ایران)
-User: (نام کاربری SSH)
-Pass: (رمز عبور SSH)
-SSH Port: (پورت SSH، معمولاً 22)
-Tunneltype: (Direct یا Reverse)
-Tunnelname: (نام دلخواه برای تانل، مثال: Ahmad75)
-Iptype: (IPv4 یا IPv6)
-Tunnelport: (پورت تانل، غیر از پورت‌های سرویس)
-Transport: (TCP یا UDP)
-Tcpnodelay: (true یا false)
-Securitytoken: (رمز امنیتی، باید با سرور خارج یکسان باشد)
-Serviceports: (پورت‌های سرویس با کاما جدا شده، مثال: 8090,4830,3333)
+`IPin:` (آیپی سرور ایران)
+`User:` (نام کاربری SSH)
+`Pass:` (رمز عبور SSH)
+`SSH Port:` (پورت SSH، معمولاً 22)
+`Tunneltype:` (Direct یا Reverse)
+`Tunnelname:` (نام دلخواه برای تانل، مثال: Ahmad75)
+`Iptype:` (IPv4 یا IPv6)
+`Tunnelport:` (پورت تانل، غیر از پورت‌های سرویس)
+`Transport:` (TCP یا UDP)
+`Tcpnodelay:` (true یا false)
+`Securitytoken:` (رمز امنیتی، باید با سرور خارج یکسان باشد)
+`Serviceports:` (پورت‌های سرویس با کاما جدا شده، مثال: 8090,4830,3333)
 
 ⚠️ تمام اطلاعات را زیر هم و در یک پیام ارسال کنید
 
@@ -49,7 +49,7 @@ Serviceports: (پورت‌های سرویس با کاما جدا شده، مثا
         [InlineKeyboardButton("◀️ بازگشت به منوی اصلی", callback_data='main_menu')]
     ]
     
-    await query.edit_message_text(text=message, reply_markup=InlineKeyboardMarkup(keyboard))
+    await query.edit_message_text(text=message, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
     return VXLAN_IRAN_INFO
 
 async def get_iran_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -89,18 +89,18 @@ async def get_iran_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 📝 لطفاً اطلاعات زیر را برای کانفیگ سرور خارج وارد کنید:
 
-IPout: (آیپی سرور خارج)
-User: (نام کاربری SSH)
-Pass: (رمز عبور SSH)
-SSH Port: (پورت SSH، معمولاً 22)
-Tunneltype: (Direct یا Reverse - باید با ایران یکسان باشد)
-Tunnelname: (نام تانل - باید با ایران یکسان باشد)
-Iranip: (آیپی سرور ایران - IPv4 یا IPv6)
-Tunnelport: (پورت تانل - باید با ایران یکسان باشد)
-Transport: (TCP یا UDP - باید با ایران یکسان باشد)
-Tcpnodelay: (true یا false)
-Securitytoken: (رمز امنیتی - باید با ایران یکسان باشد)
-Serviceports: (پورت‌های سرویس با کاما جدا شده، مثال: 8090,4830,3333)
+`IPout:` (آیپی سرور خارج)
+`User:` (نام کاربری SSH)
+`Pass:` (رمز عبور SSH)
+`SSH Port:` (پورت SSH، معمولاً 22)
+`Tunneltype:` (Direct یا Reverse - باید با ایران یکسان باشد)
+`Tunnelname:` (نام تانل - باید با ایران یکسان باشد)
+`Iranip:` (آیپی سرور ایران - IPv4 یا IPv6)
+`Tunnelport:` (پورت تانل - باید با ایران یکسان باشد)
+`Transport:` (TCP یا UDP - باید با ایران یکسان باشد)
+`Tcpnodelay:` (true یا false)
+`Securitytoken:` (رمز امنیتی - باید با ایران یکسان باشد)
+`Serviceports:` (پورت‌های سرویس با کاما جدا شده، مثال: 8090,4830,3333)
 
 ⚠️ تمام اطلاعات را زیر هم و در یک پیام ارسال کنید
 
@@ -113,7 +113,7 @@ Serviceports: (پورت‌های سرویس با کاما جدا شده، مثا
             [InlineKeyboardButton("◀️ بازگشت به منوی اصلی", callback_data='main_menu')]
         ]
         
-        await update.message.reply_text(message, reply_markup=InlineKeyboardMarkup(keyboard))
+        await update.message.reply_text(message, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
         return VXLAN_FOREIGN_INFO
         
     except Exception as e:
@@ -167,7 +167,7 @@ async def get_foreign_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
             context.user_data['tunnelname'],
             context.user_data['iptype'],
             context.user_data['tunnelport'],
-            context.user_data['transport'].lower(),  # Convert to lowercase for RGT config
+            context.user_data['transport'].lower(),
             context.user_data['tcpnodelay'],
             context.user_data['securitytoken'],
             context.user_data['serviceports']
@@ -194,7 +194,7 @@ async def get_foreign_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
             context.user_data['foreign_tunnelname'],
             context.user_data['iranip'],
             context.user_data['foreign_tunnelport'],
-            context.user_data['foreign_transport'].lower(),  # Convert to lowercase for RGT config
+            context.user_data['foreign_transport'].lower(),
             context.user_data['foreign_tcpnodelay'],
             context.user_data['foreign_securitytoken'],
             context.user_data['foreign_serviceports']
@@ -238,15 +238,14 @@ async def get_foreign_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
             print(f"[v0] Failed to save tunnel to database")
             await update.message.reply_text("⚠️ هشدار: تانل نصب شد اما ذخیره در دیتابیس با خطا مواجه شد.\n\nلطفاً تنظیمات دیتابیس را بررسی کنید.")
         
-        # Send success message
         success_message = f"""✅ تانل Vxlan با موفقیت نصب شد!
 
 🆔 Tunnel ID: `{tunnel_id}`
 
 📋 اطلاعات تانل:
-🇮🇷 IPin: {context.user_data['iran_ip']}
-🌍 IPout: {context.user_data['foreign_ip']}
-🔌 Serviceports: {context.user_data['serviceports']}
+🇮🇷 IPin: `{context.user_data['iran_ip']}`
+🌍 IPout: `{context.user_data['foreign_ip']}`
+🔌 Serviceports: `{context.user_data['serviceports']}`
 
 ✨ تمام اطلاعات برای مدیریت بعدی ذخیره شده است."""
         

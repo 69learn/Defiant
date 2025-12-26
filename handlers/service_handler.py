@@ -258,11 +258,23 @@ async def panel_info_callback(update: Update, context: ContextTypes.DEFAULT_TYPE
     
     panel_id, panel_type, server_ip, server_port, username, password, web_path, status, created_at, subdomain, db_password, owner_id = panel
     
-    if subdomain and panel_type in ['pasarguard', 'marzban', 'marzneshin']:
-        panel_url = f"https://{subdomain}:{server_port}/dashboard/"
-    elif web_path:
-        panel_url = f"http://{server_ip}:{server_port}{web_path}"
+    if panel_type == 'marzban':
+        # Marzban uses subdomain with port 8000 and /dashboard/ path
+        panel_url = f"https://{subdomain}:8000/dashboard/" if subdomain else f"https://{server_ip}:8000/dashboard/"
+    elif panel_type == 'marzneshin':
+        # Marzneshin uses subdomain with port 8000 and /dashboard/ path
+        panel_url = f"https://{subdomain}:8000/dashboard/" if subdomain else f"https://{server_ip}:8000/dashboard/"
+    elif panel_type == 'pasarguard':
+        # PasarGuard uses subdomain with port 8000 and /dashboard/ path
+        panel_url = f"https://{subdomain}:8000/dashboard/" if subdomain else f"https://{server_ip}:8000/dashboard/"
+    elif panel_type == '3x-ui':
+        # 3x-ui uses custom port and optional web_path
+        if web_path:
+            panel_url = f"http://{server_ip}:{server_port}{web_path}"
+        else:
+            panel_url = f"http://{server_ip}:{server_port}"
     else:
+        # Default fallback for unknown panel types
         panel_url = f"http://{server_ip}:{server_port}"
     
     message = f"✅ پنل {panel_type.upper()} با موفقیت نصب شد\n"
