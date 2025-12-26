@@ -59,7 +59,9 @@ Run the following script on your server (Debian or Ubuntu):
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/69learn/Defiant/refs/heads/main/install_bot.sh)
 ```
+<br>
 
+# Supported Tunnels
 
 ### My social accounts
 
