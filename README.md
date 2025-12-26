@@ -69,6 +69,6 @@ https://raw.githubusercontent.com/69learn/Defiant/refs/heads/main/prerequisite.s
 
 ## Donation Link
 
-<a href="https://nowpayments.io/donation?api_key=HHZTHS8-YC9MEHG-HTC73AH-5WVP950" target="_blank" rel="noreferrer noopener">
-    <img src="https://nowpayments.io/images/embeds/donation-button-white.svg" alt="Cryptocurrency & Bitcoin donation button by NOWPayments">
+<a href="https://nowpayments.io/donation?api_key=05005724-725b-4d8c-8875-2b14e6ad5886" target="_blank" rel="noreferrer noopener">
+    <img src="https://nowpayments.io/images/embeds/donation-button-black.svg" alt="Crypto donation button by NOWPayments">
 </a>
