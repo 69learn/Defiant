@@ -62,7 +62,10 @@ bash <(curl -Ls https://raw.githubusercontent.com/69learn/Defiant/refs/heads/mai
 <br>
 
 # Supported Tunnels
-
+- Backhaul
+- Vxlan
+- Chisel
+- Mux
 ### My social accounts
 
 [![Telegram](https://img.shields.io/badge/Telegram--0088CC?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/Erfan_XRay) 
