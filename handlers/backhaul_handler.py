@@ -19,10 +19,10 @@ async def backhaul_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = """📝 لطفاً اطلاعات زیر را برای کانفیگ سرور ایران وارد کنید:
 
 🇮🇷 سرور ایران:
-IPin: (آیپی سرور ایران)
-User: (نام کاربری SSH)
-Pass: (رمز عبور SSH)
-SSH Port: (پورت SSH، معمولاً 22)
+IPin:
+User:
+Pass:
+SSH Port:
 TunnelPorts: (پورت‌های تانل را با فاصله وارد کنید، مثال: 443 2083 8084)
 Transport: (tcp, tcpmux, udp, ws, wss, wsmux, wssmux - پیش‌فرض: tcp)
 Subdomain: (فقط برای wss و wssmux، مثال: sub.example.com)
