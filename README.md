@@ -26,7 +26,7 @@ Defiant is released as an open-source project, and contributions from the commun
 <img width="70" height="70"  alt="XPanel" src="https://github.com/69learn/Defiant/blob/main/assets/marzneshin.jpg">  
   
 </picture>
-  </p> 
+  </p>   
   
 - (Marzban)
 ````
@@ -46,6 +46,11 @@ curl -fsSL https://github.com/PasarGuard/scripts/raw/main/pasarguard.sh -o /tmp/
   && sudo bash /tmp/pg.sh install --database mysql
 ````
 
+# Supported Tunnels
+- Backhaul
+- Vxlan
+- Chisel
+- Mux
 
 
 <br>
@@ -61,11 +66,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/69learn/Defiant/refs/heads/mai
 ```
 <br>
 
-# Supported Tunnels
-- Backhaul
-- Vxlan
-- Chisel
-- Mux
+
 ### My social accounts
 
 [![Telegram](https://img.shields.io/badge/Telegram--0088CC?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/Erfan_XRay) 
