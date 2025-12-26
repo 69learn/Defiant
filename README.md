@@ -55,7 +55,7 @@ curl -fsSL https://github.com/PasarGuard/scripts/raw/main/pasarguard.sh -o /tmp/
 
 <br>
 
-## prerequisites
+## Prerequisites
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/69learn/Defiant/refs/heads/main/prerequisite.sh)
 ```
