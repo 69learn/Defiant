@@ -55,7 +55,10 @@ curl -fsSL https://github.com/PasarGuard/scripts/raw/main/pasarguard.sh -o /tmp/
 
 <br>
 
-## Prerequisites
+## Prerequisites For Main Server
+```
+pip install python-telegram-bot paramiko asyncio python-dotenv pymysql
+```
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/69learn/Defiant/refs/heads/main/prerequisite.sh)
 ```
@@ -69,8 +72,8 @@ bash <(curl -Ls https://raw.githubusercontent.com/69learn/Defiant/refs/heads/mai
 
 ### My social accounts
 
-[![Telegram](https://img.shields.io/badge/Telegram--0088CC?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/Erfan_XRay) 
-[![YouTube](https://img.shields.io/badge/YouTube--FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@Erfan_XRay/videos)
+[![Telegram](https://img.shields.io/badge/Telegram--0088CC?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/sixtininelearn) 
+[![YouTube](https://img.shields.io/badge/YouTube--FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@sixtininelearn/videos)
 
 ## Donation Link
 
