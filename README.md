@@ -72,9 +72,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/69learn/Defiant/refs/heads/mai
 ----------------------------------
   <div align="right">
   <details>
-    <summary><strong><img src="https://github.com/Azumi67/FRP_Reverse_Loadbalance/assets/119934376/ae5b07b8-4d5e-4302-a31f-dec2a79a76b5" alt="Image"> ویدیوهای آموزشی</strong></summary>
-------------------------------------   
-- **ویدیوی آموزشی توسط 69**
+    <summary><strong><img src="https://github.com/Azumi67/FRP_Reverse_Loadbalance/assets/119934376/ae5b07b8-4d5e-4302-a31f-dec2a79a76b5" alt="Image">Watch On Youtube</strong></summary>
+
+
 <div align="right">
   <a href="https://youtu.be/t56PwcsiTsY?si=DniiBvKlH5pjbddu">
     <img src="https://github.com/69learn/Defiant/blob/main/assets/sdsdsdsdsd.jpg" alt="Video Title" width="300">
